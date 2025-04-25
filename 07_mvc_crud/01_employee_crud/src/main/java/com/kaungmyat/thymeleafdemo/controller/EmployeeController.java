@@ -11,7 +11,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/employees")
 public class EmployeeController {
-    private EmployeeService employeeService;
+    private final EmployeeService employeeService;
 
     public EmployeeController(EmployeeService employeeService) {
         this.employeeService = employeeService;
@@ -24,16 +24,16 @@ public class EmployeeController {
         List<Employee> theEmployees = employeeService.findAll();
         theModel.addAttribute("employees", theEmployees);
 
-        return "employees/index";
+        return "employees/list-employees";
     }
 
-    @GetMapping("/create")
+    @GetMapping("/showFormForAdd")
     public String showFormForAdd(Model theModel) {
         Employee theEmployee = new Employee();
 
         theModel.addAttribute("employee", theEmployee);
 
-        return "employees/create";
+        return "employees/employee-form";
     }
 
     @PostMapping("")
@@ -49,7 +49,7 @@ public class EmployeeController {
         Employee theEmployee = employeeService.findById(theId);
         theModel.addAttribute("employee", theEmployee);
 
-        return "employees/update";
+        return "employees/employee-form";
     }
 
     @PostMapping("/delete")

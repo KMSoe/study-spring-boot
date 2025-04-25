@@ -3,7 +3,7 @@ package com.kaungmyat.thymeleafdemo.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="employee")
+@Table(name="employees")
 public class Employee {
 
     // define fields

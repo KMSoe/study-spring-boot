@@ -3,7 +3,6 @@ package com.kaungmyat.cruddemo.dao;
 import com.kaungmyat.cruddemo.entity.Course;
 import com.kaungmyat.cruddemo.entity.Instructor;
 import com.kaungmyat.cruddemo.entity.InstructorDetail;
-import com.kaungmyat.cruddemo.entity.Student;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
@@ -132,53 +131,5 @@ public class AppDAOImpl implements AppDAO {
         Course course = query.getSingleResult();
 
         return course;
-    }
-
-    @Override
-    public Course findCourseAndStudentsByCourseId(int id) {
-        TypedQuery<Course> query = entityManager.createQuery(
-                "select c from Course c "
-                        + "JOIN FETCH c.students "
-                        + "where c.id = :data", Course.class);
-
-        query.setParameter("data", id);
-        Course course = query.getSingleResult();
-
-        return course;
-    }
-
-    @Override
-    public Student findStudentAndCoursesByStudentId(int id) {
-        TypedQuery<Student> query = entityManager.createQuery(
-                "select s from Student s "
-                        + "JOIN FETCH s.courses "
-                        + "where s.id = :data", Student.class);
-
-        query.setParameter("data", id);
-        Student student = query.getSingleResult();
-
-        return student;
-    }
-
-    @Override
-    @Transactional
-    public void updateStudent(Student tempStudent) {
-        entityManager.merge(tempStudent);
-    }
-
-    @Override
-    @Transactional
-    public void deleteStudentById(int id) {
-        Student tempStudent = entityManager.find(Student.class, id);
-
-        if (tempStudent != null) {
-            List<Course> courses = tempStudent.getCourses();
-
-            for (Course tempCourse : courses) {
-                tempCourse.getStudents().remove(tempStudent);
-            }
-
-            entityManager.remove(tempStudent);
-        }
     }
 }

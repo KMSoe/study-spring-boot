@@ -3,7 +3,6 @@ package com.kaungmyat.cruddemo.dao;
 import com.kaungmyat.cruddemo.entity.Course;
 import com.kaungmyat.cruddemo.entity.Instructor;
 import com.kaungmyat.cruddemo.entity.InstructorDetail;
-import com.kaungmyat.cruddemo.entity.Student;
 
 import java.util.List;
 
@@ -25,10 +24,4 @@ public interface AppDAO {
     void deleteCourseById(int id);
     void saveCourse(Course course);
     Course findCourseAndReviewsByCourseId(int id);
-
-    // Many to Many
-    Course findCourseAndStudentsByCourseId(int id);
-    Student findStudentAndCoursesByStudentId(int id);
-    void updateStudent(Student tempStudent);
-    void deleteStudentById(int id);
 }

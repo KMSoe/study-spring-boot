@@ -4,6 +4,7 @@ import com.kaungmyat.cruddemo.dao.AppDAO;
 import com.kaungmyat.cruddemo.entity.Course;
 import com.kaungmyat.cruddemo.entity.Instructor;
 import com.kaungmyat.cruddemo.entity.InstructorDetail;
+import com.kaungmyat.cruddemo.entity.Review;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -42,6 +43,12 @@ public class CruddemoApplication {
 			// deleteInstructor(appDAO);
 
 //			deleteCourse(appDAO);
+
+//			 createCourseAndReviews(appDAO);
+
+			// retrieveCourseAndReviews(appDAO);
+
+//			deleteCourseAndReviews(appDAO);
 		};
 	}
 
@@ -225,4 +232,34 @@ public class CruddemoApplication {
 		System.out.println("Done!");
 	}
 
+	private void createCourseAndReviews(AppDAO appDAO) {
+		Course tempCourse = new Course("Pacman - How To Score One Million Points");
+
+		tempCourse.addReview(new Review("Great course ... loved it!"));
+		tempCourse.addReview(new Review("Cool course, job well done."));
+		tempCourse.addReview(new Review("What a dumb course, you are an idiot!"));
+
+		System.out.println("Saving the course");
+		System.out.println(tempCourse);
+		System.out.println(tempCourse.getReviews());
+
+		appDAO.saveCourse(tempCourse);
+
+		System.out.println("Done!");
+	}
+
+	private void retrieveCourseAndReviews(AppDAO appDAO) {
+		int id = 1;
+		Course tempCourse = appDAO.findCourseAndReviewsByCourseId(id);
+
+		System.out.println(tempCourse);
+		System.out.println(tempCourse.getReviews());
+	}
+
+	private void deleteCourseAndReviews(AppDAO appDAO) {
+		int id = 10;
+		System.out.println("Deleting course id: " + id);
+		appDAO.deleteCourseById(id);
+		System.out.println("Done!");
+	}
 }
